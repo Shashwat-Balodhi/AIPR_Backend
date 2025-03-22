@@ -6,7 +6,7 @@ from chunkr_ai import Chunkr
 from dotenv import load_dotenv
 
 from flask_cors import CORS
-CORS(app)
+
 
 
 # Load API keys from .env file
@@ -17,6 +17,8 @@ OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 # Initialize Flask app
 app = Flask(__name__)
+
+CORS(app)
 
 # Initialize Chunkr-AI
 chunkr = Chunkr(api_key=CHUNKR_API_KEY)
