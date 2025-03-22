@@ -62,23 +62,33 @@ def analyze_legal_text(ocr_text):
     reasoning = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
     return reasoning
 
-@app.route("/")  
+
+
+
+
+@app.route("/", methods=["GET"])
 def home():
-    return "AIPR Backend is Running Successfully! 🚀"
+    return "AIPR Backend is Live!", 200
 
 @app.route("/process", methods=["POST"])
-def process():
+def process_pdf():
     if "file" not in request.files:
-        return jsonify({"error": "No file provided"}), 400
+        return jsonify({"error": "No file uploaded"}), 400
+
+    pdf_file = request.files["file"]
     
-    file = request.files["file"]
-    file_path = f"./uploads/{file.filename}"
-    file.save(file_path)
-
-    # Run async function in event loop
-    result = asyncio.run(process_document(file_path))
-
-    return jsonify({"analysis": result})
+    if pdf_file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+    
+    # Save uploaded file
+    upload_path = os.path.join("uploads", pdf_file.filename)
+    pdf_file.save(upload_path)
+    
+    # Dummy response (Replace with AI processing logic)
+    result = {"message": "File received and processed: " + pdf_file.filename}
+    
+    return jsonify(result), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(host="0.0.0.0", port=10000, debug=True)
+
