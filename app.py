@@ -77,7 +77,7 @@ def home():
     return "AIPR Backend is Live!", 200
 
 @app.route("/process", methods=["POST"])
-def process_pdf():
+async def process_pdf():
     if "file" not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
@@ -88,12 +88,14 @@ def process_pdf():
     
     # Save uploaded file
     upload_path = os.path.join("uploads", pdf_file.filename)
+    os.makedirs("uploads", exist_ok=True)  # Ensure the folder exists
     pdf_file.save(upload_path)
     
-    # Dummy response (Replace with AI processing logic)
-    result = {"message": "File received and processed: " + pdf_file.filename}
-    
-    return jsonify(result), 200
+    # Process the document with Chunkr-AI and get OCR text
+    result = await process_document(upload_path)
+
+    return jsonify({"message": "File processed successfully", "analysis": result}), 200
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000, debug=True)
