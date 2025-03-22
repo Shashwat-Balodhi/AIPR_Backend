@@ -4,3 +4,5 @@ python-dotenv
 chunkr-ai
 gunicorn
 flask-cors
+flask[async]
+hypercorn
