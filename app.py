@@ -5,6 +5,10 @@ from flask import Flask, request, jsonify
 from chunkr_ai import Chunkr
 from dotenv import load_dotenv
 
+from flask_cors import CORS
+CORS(app)
+
+
 # Load API keys from .env file
 load_dotenv()
 
