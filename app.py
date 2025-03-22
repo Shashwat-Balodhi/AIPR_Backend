@@ -62,6 +62,10 @@ def analyze_legal_text(ocr_text):
     reasoning = result.get("choices", [{}])[0].get("message", {}).get("content", "").strip()
     return reasoning
 
+@app.route("/")  
+def home():
+    return "AIPR Backend is Running Successfully! 🚀"
+
 @app.route("/process", methods=["POST"])
 def process():
     if "file" not in request.files:
