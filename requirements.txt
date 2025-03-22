@@ -3,3 +3,4 @@ requests
 python-dotenv
 chunkr-ai
 gunicorn
+flask-cors
