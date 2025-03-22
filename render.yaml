@@ -3,9 +3,5 @@ services:
     name: aipr-backend
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
-    envVars:
-      - key: CHUNKR_API_KEY
-        sync: false
-      - key: OPENROUTER_API_KEY
-        sync: false
+    startCommand: "hypercorn app:app --bind 0.0.0.0:10000"
+    
