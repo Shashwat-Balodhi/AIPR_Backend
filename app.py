@@ -70,11 +70,11 @@ def analyze_legal_text(ocr_text):
 
 
 
-
-
 @app.route("/", methods=["GET"])
 def home():
     return "AIPR Backend is Live!", 200
+
+
 
 @app.route("/process", methods=["POST"])
 async def process_pdf():
@@ -94,7 +94,17 @@ async def process_pdf():
     # Process the document with Chunkr-AI and get OCR text
     result = await process_document(upload_path)
 
-    return jsonify({"message": "File processed successfully", "analysis": result}), 200
+    # Separate extracted text and analysis
+    ocr_text = result if isinstance(result, str) else result.get("ocr_text", "No text extracted")
+    analysis = result if isinstance(result, str) else result.get("analysis", "No analysis available")
+
+    return jsonify({
+        "message": "File processed successfully",
+        "extracted_text": ocr_text,  # ✅ OCR Extracted Text
+        "analysis": analysis  # ✅ Legal Analysis
+    }), 200
+
+
 
 
 if __name__ == "__main__":
