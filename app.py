@@ -94,15 +94,14 @@ async def process_pdf():
     # Process the document with Chunkr-AI and get OCR text
     result = await process_document(upload_path)
 
-    # Separate extracted text and analysis
-    ocr_text = result if isinstance(result, str) else result.get("ocr_text", "No text extracted")
-    analysis = result if isinstance(result, str) else result.get("analysis", "No analysis available")
+    # ✅ Print Debugging Info
+    print("Processed Result:", result)
 
     return jsonify({
         "message": "File processed successfully",
-        "extracted_text": ocr_text,  # ✅ OCR Extracted Text
-        "analysis": analysis  # ✅ Legal Analysis
+        "analysis": result  # Ensure this key is sent!
     }), 200
+
 
 
 
