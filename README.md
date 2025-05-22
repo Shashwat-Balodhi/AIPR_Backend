@@ -5,7 +5,7 @@ This is the backend for the **AI Proofreader (AIPR)** system. It performs OCR on
 
 ⚙️ Frontend Repo: [AIPR_Frontend](https://github.com/Shashwat-Balodhi/AIPR_Frontend)
 
-🌐 Deployed on: [Render](https://proofreader-backend.onrender.com)
+🌐 Deployed on: [Render](https://render.com/) backend server is offline right now...
 
 ---
 
